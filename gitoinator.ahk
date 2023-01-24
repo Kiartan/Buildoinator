@@ -1,4 +1,12 @@
 ﻿; y - repo hf
+
+Loop, read, file_source.txt
+{
+	git := A_LoopReadLine
+	If InStr(git, "Git: ")
+		StringTrimLeft, git1, git, 5
+}
+
 ; commit
 Loop, read, file_source.txt
 {
@@ -13,13 +21,14 @@ FileReadLine, HF, %y1%\.git\HEAD, 1
 
 BlockInput, On
 {
-	Run, git-bash.exe, C:\Program Files\Git\, Hide
+	Run, C:\Program Files\Git\git-bash.exe
+	; %git1%"\git-bash.exe
 	Sleep 750
 	SendInput, cd "%y1%" {Enter}
 	Sleep 400
 	SendInput, git log -1 | clip {Enter}
 	Sleep 400
-	Send !{F4}
+	; Send !{F4}
 }
 BlockInput, Off
 

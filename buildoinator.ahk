@@ -23,7 +23,7 @@ If !FileExist("file_source.txt") {
 	If (%x1len% = 0) {
 		MsgBox, 16, Powoli!, 
 		(
-		Ej! Nie dopisałeś ścieżki w file_source.txt!
+		Ej! Nie dopisałeś ścieżki Steam w file_source.txt!
 		
 		Uzupełnij!
 		)
@@ -76,7 +76,7 @@ If !FileExist("file_source.txt") {
 	If (%y1len% = 0) {
 		MsgBox, 16, Powoli!, 
 		(
-		Ej! Nie dopisałeś ścieżki w file_source.txt!
+		Ej! Nie dopisałeś ścieżki do repo w file_source.txt!
 		
 		Uzupełnij!
 		)
@@ -96,7 +96,7 @@ If !FileExist("file_source.txt") {
 
 		IfMsgBox, Yes
 	; gitoinator
-		Run *RunAs gitoinator.exe
+		Run *RunAs gitoinator.ahk
 		return
 	}
 }

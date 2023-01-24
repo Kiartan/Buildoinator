@@ -9,6 +9,8 @@ FileAppend,
 (
 Poniżej wpisz odpowiednie ścieżki:
 
+Git: 
+
 HF1:
 
 Steam: 
