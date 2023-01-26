@@ -94,13 +94,14 @@ albo ją pochrzaniłeś!
 		}
 
 		MsgBox, 4, Pytanko, A może nr commita do tego?
-
-			IfMsgBox, No
-				SendInput, wykryte na branchu %branch1%
-				return
-		
 			IfMsgBox, Yes
 				Run gitoinator.ahk
-				return
+				
+			
+			IfMsgBox, No
+				SendInput, wykryte na branchu %branch1%
+		return
+		
+
 	}
 }

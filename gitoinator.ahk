@@ -7,8 +7,7 @@ Loop, read, file_source.txt
 	If InStr(A_LoopReadLine, "Git: ")
 		StringTrimLeft, git1, A_LoopReadLine, 5
 }
-MsgBox "Działa"
-return
+
 ; sprawdzenie czy w file_source.txt jest poprawna ścieżka do git-bash
 StringLen, git1len, git1
 
@@ -28,7 +27,7 @@ albo ją pochrzaniłeś!
 	{
 	Loop, read, file_source.txt
 		If InStr(A_LoopReadLine, "Repo: ")
-			StringTrimLeft, y1, A_LoopReadLine, 6
+			StringTrimLeft, y1, A_LoopReadLine, 7
 	}
 ; branch
 	{
