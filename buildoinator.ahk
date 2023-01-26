@@ -1,54 +1,59 @@
-﻿; buildy Steam i branche HF1
+﻿#SingleInstance Force
+SetWorkingDir %A_ScriptDir%
+
+; buildy Steam i branche HF1
 
 :*:wns::
 ; x - hf na steam
 ; y - repo hf
 
 If !FileExist("file_source.txt") {
-	Run file_source_absent.exe
+	Run file_source_absent.ahk
 	Sleep, 200
 	return
 
 } Else {
 	Loop, read, file_source.txt
-	{
-		x := A_LoopReadLine
-		If InStr(x, "Steam: ")
-			StringTrimLeft, x1, x, 7
-	}
+		If InStr(A_LoopReadLine, "Steam: ")
+			StringTrimLeft, x1, A_LoopReadLine, 7
 
-; sprawdzenie czy w file_source.txt są ścieżki
+; sprawdzenie czy w file_source.txt są ścieżki i czy są poprawne
 	StringLen, x1len, x1
 
 	If (%x1len% = 0) {
 		MsgBox, 16, Powoli!, 
 		(
-		Ej! Nie dopisałeś ścieżki Steam w file_source.txt!
+		Ej! Nie dopisałeś ścieżki Steam w file_source.txtalbo ją pochrzaniłeś!
 		
-		Uzupełnij!
+	Uzupełnij lub popraw!!
 		)
 		Sleep, 200
 		return
 
 	} Else {
-		FileReadLine, Steam, %x1%\common\House Flipper\build-info.txt, 6
+		{
+		steam_path = %x1%\common\House Flipper\build-info.txt
+		FileReadLine, Steam, %steam_path%, 6
 			StringTrimLeft, Steam1, Steam, 13
 			StringTrimRight, Steam2, Steam1, 2
-
-		Loop, read, %x1%\appmanifest_613100.acf
-		{
-			Branch := A_LoopReadLine
-			If InStr(Branch, "BetaKey")
-				StringTrimLeft, Branch1, Branch, 14
-				StringTrimRight, Branch2, Branch1, 1
 		}
-		StringLen, Lenght, Branch2
+		
+		{
+		beta_path = %x1%\appmanifest_613100.acf
+		Loop, read, %beta_path%
+			If InStr(A_LoopReadLine, "BetaKey")
+				StringTrimLeft, beta1, A_LoopReadLine, 14
+				StringTrimRight, beta2, beta1, 1
+		}
+
+		StringLen, Lenght, beta2
 
 		If (%Lenght% = 0)
 			SendInput, wykryte na buildzie %Steam2% - obecny build graczy
 		Else
-			SendInput, wykryte na buildzie %Steam2% - obecny branch beta Steam %Branch2%
+			SendInput, wykryte na buildzie %Steam2% - obecny branch beta Steam %beta2%
 		return
+	
 	}
 }
 
@@ -57,47 +62,45 @@ If !FileExist("file_source.txt") {
 :*:wnb::
 
 If !FileExist("file_source.txt") {
-	Run file_source_absent.exe
+	Run file_source_absent.ahk
 	Sleep, 200
 	return
 
 } Else {
 
 	Loop, read, file_source.txt
-	{
-		y := A_LoopReadLine
-		If InStr(y, "Repo: ")
-			StringTrimLeft, y1, y, 6
-	}
-
-; sprawdzenie czy w file_source.txt są ścieżki	
+		If InStr(A_LoopReadLine, "Repo: ")
+			StringTrimLeft, y1, A_LoopReadLine, 6
+	
+; sprawdzenie czy w file_source.txt są ścieżki i czy są poprawne
 	StringLen, y1len, y1
-
+	
 	If (%y1len% = 0) {
 		MsgBox, 16, Powoli!, 
 		(
-		Ej! Nie dopisałeś ścieżki do repo w file_source.txt!
+		Ej! Nie dopisałeś ścieżki do repo w file_source.txt,
+albo ją pochrzaniłeś!
 		
-		Uzupełnij!
+	Uzupełnij lub popraw!
 		)
 		Sleep, 200
 		return
 
 	} Else {
-		FileReadLine, HF, %y1%\.git\HEAD, 1
-			StringTrimLeft, HF1, HF, 16
-		MsgBox, 4, Pytanko, A może nr commita do tego?
-
-		IfMsgBox, No
 		{
-			SendInput, wykryte na branchu %HF1%
-			return
+		branch_path = %y1%\.git\HEAD
+		FileReadLine, branch, %branch_path%, 1
+			StringTrimLeft, branch1, branch, 16
 		}
 
-		IfMsgBox, Yes
-	; gitoinator
-		Run *RunAs gitoinator.ahk
-		return
+		MsgBox, 4, Pytanko, A może nr commita do tego?
+
+			IfMsgBox, No
+				SendInput, wykryte na branchu %branch1%
+				return
+		
+			IfMsgBox, Yes
+				Run gitoinator.ahk
+				return
 	}
 }
-

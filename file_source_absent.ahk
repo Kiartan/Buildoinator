@@ -13,8 +13,8 @@ Git:
 
 HF1:
 
-Steam: 
+	Steam: 
 
-Repo: 
+	Repo: 
 
 ), file_source.txt

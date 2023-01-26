@@ -1,9 +1,10 @@
 Poni¿ej wpisz odpowiednie œcie¿ki:
 
-Git: C:\Program Files\Git
+Git: C:\Program Files\Git\git-bash.exe
 
 HF1:
 
-Steam:
+	Steam: C:\Program Files (x86)\Steam\steamapps
 
-Repo: 324242423424
+	Repo: E:\HF\repo 2\HouseFlipperRelease
+
