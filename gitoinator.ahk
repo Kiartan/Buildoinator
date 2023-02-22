@@ -1,55 +1,46 @@
 ﻿#SingleInstance Force
 SetWorkingDir %A_ScriptDir%
+#Include path_helper.ahk
 
 ; y - repo hf
-{
-Loop, read, file_source.txt
-	If InStr(A_LoopReadLine, "Git: ")
-		StringTrimLeft, git1, A_LoopReadLine, 5
-}
 
-; sprawdzenie czy w file_source.txt jest poprawna ścieżka do git-bash
-StringLen, git1len, git1
+git = % PathChecker("Git: ", "bash", 5)
+StringLen, Git_lenght, git
 
-If (%gitlen% = 0){
-	MsgBox, 16, Powoli!, 
-	(
-	Ej! Nie dopisałeś ścieżki do gita w file_source.txt,
-albo ją pochrzaniłeś!
-		
-	Uzupełnij lub popraw!
-	)
-	Sleep, 200
+If (%Git_lenght%) = 0 {
 	return
-
+	
 } Else {
-; commit
-	{
-	Loop, read, file_source.txt
-		If InStr(A_LoopReadLine, "Repo: ")
-			StringTrimLeft, y1, A_LoopReadLine, 7
-	}
+	
+	y1 = % PathFinder("Repo: ", 7)
+	
 ; branch
 	{
-	branch_path = %y1%\.git\HEAD
-	FileReadLine, branch, %branch_path%, 1
+		branch_path = %y1%\.git\HEAD
+		FileReadLine, branch, %branch_path%, 1
 		StringTrimLeft, branch1, branch, 16
 	}
-
+	
+; commit
 	BlockInput, On
-	{
-		Run, "%git1%"
-		Sleep 750
-		SendInput, cd "%y1%" {Enter}
-		Sleep 400
-		SendInput, git log -1 | clip {Enter}
-		Sleep 400
-		Send !{F4}
-	}
+	commit = % Gitoinator(git, y1)
+	Send !{F4}
 	BlockInput, Off
-
-	commithf:= StrSplit(Clipboard,"`n","`r").1
+	
 	Sleep 200
-	SendInput, wykryte na branchu %branch1% (%commithf%)
+	SendInput, wykryte na branchu %branch1% (%commit%)
 	return
 }
+
+
+Gitoinator(git, repo) {
+	Run, %git%
+	Sleep 750
+	SendInput, cd "%repo%" {Enter}
+	Sleep 400
+	SendInput, git log -1 | clip {Enter}
+	Sleep 400
+	commithf:= StrSplit(Clipboard,"`n","`r").1
+	return commithf	
+	}
+	

@@ -7,4 +7,3 @@ HF1:
 	Steam: C:\Program Files (x86)\Steam\steamapps
 
 	Repo: E:\HF\repo 2\HouseFlipperRelease
-

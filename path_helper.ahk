@@ -1,51 +1,55 @@
 ﻿SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
-class Path_helper
-{
-	PathChecker(z, s) {
+PathChecker(z, s, l) {
+	x1 = % PathFinder(z, l)
+	x2 := StrReplace(x1, A_Space, "")
+	StringLen, x2len, x2
+	
+; sprawdzenie czy ścieżka jest wypełniona
+	If (%x2len% = 0) {
+		MsgBox, 16, Powoli, Ścieżka w file_source.txt jest pusta
+		return
+	} Else {		
+; sprawdzenie czy jest poprawna
+		If !InStr(x1, s) {
+			MsgBox, 16, Powoli, Ścieżka w file_source.txt jest niepoprawna
+			return
+		} Else {
+			return x1
+		}
+	}	
+}
+	
+	PathFinder(z, l) {
 		Loop, read, file_source.txt
 		{
 			If InStr(A_LoopReadLine, z) 
-				StringTrimLeft, x, A_LoopReadLine, 7
-			x1 := StrReplace(x, A_Space, "")
-			StringLen, x1len, x1
-		}
-	; sprawdzenie czy ścieżka jest wypełniona
-		If (%x1len% = 0) {
-			return MsgBox, 16, Powoli, "Ścieżka do" %z% "w file_source.txt jest pusta."
-			
-		} Else {		
-	; sprawdzenie czy jest poprawna
-			If not InStr(x1, s) {
-				return MsgBox, 16, Powoli, "Ścieżka do" %z% "w file_source.txt jest niepoprawna."
-			
-			} Else {
-				return x1
-			}
+				StringTrimLeft, x1, A_LoopReadLine, l ;7
 		}	
+		return x1
 	}
-	
 	
 	FileAbsent() {
 		MsgBox, 16, Powoli!, 
-		(
-		Brak pliku źródłowego file_source.txt.
-
-		Zrobię Ci go, ale uzupełnij ścieżki ok?
-		)
+	(
+	Brak pliku źródłowego file_source.txt.
+	
+Zrobię Ci go, ale uzupełnij ścieżki ok?
+	)
 		FileAppend,
-		(
-		Poniżej wpisz odpowiednie ścieżki:
+	(
+	Poniżej wpisz odpowiednie ścieżki:
 
-		Git: 
+	Git: 
 
-		HF1:
+	HF1:
 
-			Steam: 
+		Steam: 
 
-			Repo: 
+		Repo: 
 
-		), file_source.txt
+	), file_source.txt
+		
+		Run, file_source.txt
 	}
-}
