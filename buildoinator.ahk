@@ -1,79 +1,80 @@
-﻿#NoEnv
-#SingleInstance Force
+﻿#SingleInstance Force
 SetWorkingDir %A_ScriptDir%
-#Include path_helper.ahk
+
+; menu z wyborem gry i platformę itd. coś jak starter
+
+Gui, New,, Buildoinator
+
+Gui, Add, Text,, 
+(
+Witaj w Buildoinatorze!
+Wybierz grę i platforme na której testujesz:
+)
+
+Gui, Add, Text,, Gra
+Gui, Add, Radio, vHF gRun_slave, House Flipper
+Gui, Add, Radio, vHF2 gRun_slave, House Flipper 2
+
+Gui, Add, Text,, Platforma
+Gui, Add, DropDownList, vPlatform gRun_slave, Steam|Unity
+
+Gui, Add, Button, gOpen, Edytuj ścieżki
+
+Gui, show, W250 H180
+Gui, Submit, NoHide
+return
 
 
-; buildy Steam i branche HF1
+;Labels
 
-:*:wns::
-; x - hf na steam
-; y - repo hf
 
-If !FileExist("file_source.txt") {
-	FileAbsent()
-	return
-	
-} Else {
-	path = % PathChecker("Steam: ", "steamapps", 7)
-	StringLen, Path_lenght, path
-	
-	If (%Path_lenght%) = 0 {
-		return
-	} Else {
-		{
-			steam_path = %path%\common\House Flipper\build-info.txt
-			FileReadLine, Steam, %steam_path%, 6
-			StringTrimLeft, Steam1, Steam, 13
-			StringTrimRight, Steam2, Steam1, 2
-		}
-		{
-			beta_path = %path%\appmanifest_613100.acf
-			Loop, read, %beta_path%
-				If InStr(A_LoopReadLine, "BetaKey")
-					StringTrimLeft, beta1, A_LoopReadLine, 14
-					StringTrimRight, beta2, beta1, 1
-		}
-		StringLen, Lenght, beta2
-	
-		If (%Lenght% = 0)
-			SendInput, wykryte na buildzie %Steam2% - obecny build graczy
-		Else
-			SendInput, wykryte na buildzie %Steam2% - obecny branch beta Steam %beta2%
-		return
+
+Run_slave:
+	Gui, Submit, Nohide
+	DetectHiddenWindows On
+	If (HF = 1 && Platform = "Steam") {	
+		WinClose, %A_ScriptDir%\steam2.ahk
+		WinClose, %A_ScriptDir%\unity1.ahk
+		WinClose, %A_ScriptDir%\unity2.ahk
+		Run, steam1.ahk
+	} Else If (HF = 1 && Platform = "Unity") {
+		WinClose, %A_ScriptDir%\steam1.ahk
+		WinClose, %A_ScriptDir%\steam2.ahk
+		WinClose, %A_ScriptDir%\unity2.ahk
+		Run, unity1.ahk
+	} Else If (HF2 = 1 && Platform = "Steam") {
+		WinClose, %A_ScriptDir%\steam1.ahk
+		WinClose, %A_ScriptDir%\unity1.ahk
+		WinClose, %A_ScriptDir%\unity2.ahk
+		Run, steam2.ahk
+	} Else If (HF2 = 1 && Platform = "Unity") {
+		WinClose, %A_ScriptDir%\steam1.ahk
+		WinClose, %A_ScriptDir%\steam2.ahk
+		WinClose, %A_ScriptDir%\unity1.ahk
+		Run, unity2.ahk
 	}
-}		
-
-	
-	
-;Unity HF
-	
-:*:wnb::
-
-If !FileExist("file_source.txt") {
-	FileAbsent()
+	DetectHiddenWindows Off
 	return
-	
-} Else {
-	path = % PathChecker("Repo: ", "Release", 7)
-	StringLen, Path_lenght, path
-	
-	If (%Path_lenght%) = 0 {
-		return
-	} Else {
-		{
-			branch_path = %path%\.git\HEAD
-			FileReadLine, branch, %branch_path%, 1
-			StringTrimLeft, branch1, branch, 16
-		}
-		MsgBox, 4, Pytanko, A może nr commita do tego?
-		IfMsgBox, Yes
-			Run *RunAs gitoinator.ahk
-		
-		IfMsgBox, No
-			SendInput, wykryte na branchu %branch1%
-		return
-		
-		
+
+Open:
+	MsgBox, Nie zapomnij zapisać!
+	Run, file_source.txt
+	return
+
+GuiClose:
+	{	
+		DetectHiddenWindows On
+		WinClose, %A_ScriptDir%\steam1.ahk
+		WinClose, %A_ScriptDir%\steam2.ahk
+		WinClose, %A_ScriptDir%\unity1.ahk
+		WinClose, %A_ScriptDir%\unity2.ahk
+		DetectHiddenWindows Off
 	}
-}
+	ExitApp
+	return
+
+
+
+;t::
+; HF2 %HF2% Platform %Platform%
+; return

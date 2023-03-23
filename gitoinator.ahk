@@ -12,7 +12,7 @@ If (%Git_lenght%) = 0 {
 	
 } Else {
 	
-	y1 = % PathFinder("Repo: ", 7)
+	y1 = % PathFinder("Repo_HF: ", 10)
 	
 ; branch
 	{
@@ -28,7 +28,8 @@ If (%Git_lenght%) = 0 {
 	BlockInput, Off
 	
 	Sleep 200
-	SendInput, wykryte na branchu %branch1% (%commit%)
+	commit1 := SubStr(commit, 8, 7)
+	SendInput, wykryte na branchu [%branch1%] commit [%commit1%]
 	return
 }
 

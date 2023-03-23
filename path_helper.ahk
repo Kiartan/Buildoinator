@@ -25,7 +25,7 @@ PathChecker(z, s, l) {
 		Loop, read, file_source.txt
 		{
 			If InStr(A_LoopReadLine, z) 
-				StringTrimLeft, x1, A_LoopReadLine, l ;7
+				StringTrimLeft, x1, A_LoopReadLine, l 
 		}	
 		return x1
 	}
@@ -47,7 +47,9 @@ Zrobię Ci go, ale uzupełnij ścieżki ok?
 
 		Steam: 
 
-		Repo: 
+		Repo_HF: 
+		
+		Repo_HF2:
 
 	), file_source.txt
 		
