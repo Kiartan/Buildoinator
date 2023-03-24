@@ -43,13 +43,11 @@ Zrobię Ci go, ale uzupełnij ścieżki ok?
 
 	Git: 
 
-	HF1:
-
-		Steam: 
-
-		Repo_HF: 
+	Steam: 
+	
+	Repo_HF: 
 		
-		Repo_HF2:
+	Repo_HF2:
 
 	), file_source.txt
 		

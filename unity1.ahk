@@ -14,7 +14,7 @@ If !FileExist("file_source.txt") {
 	return
 	
 } Else {
-	path = % PathChecker("Repo_HF: ", "Release", 10)
+	path = % PathChecker("Repo_HF: ", "Release", 9)
 	StringLen, Path_lenght, path
 	
 	If (%Path_lenght%) = 0 {

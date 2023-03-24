@@ -1,5 +1,6 @@
 ﻿#SingleInstance Force
 SetWorkingDir %A_ScriptDir%
+#Include path_helper.ahk
 
 ; menu z wyborem gry i platformę itd. coś jak starter
 
@@ -57,8 +58,12 @@ Run_slave:
 	return
 
 Open:
-	MsgBox, Nie zapomnij zapisać!
-	Run, file_source.txt
+	If FileExist("file_source.txt") {
+		MsgBox, Nie zapomnij zapisać!
+		Run, file_source.txt
+	} Else {
+		FileAbsent()
+	}	
 	return
 
 GuiClose:
