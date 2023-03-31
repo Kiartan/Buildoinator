@@ -3,10 +3,9 @@
 SetWorkingDir %A_ScriptDir%
 #Include path_helper.ahk
 
-
 ; branche HF1
 
-	
+
 :*:wnb::
 
 If !FileExist("file_source.txt") {

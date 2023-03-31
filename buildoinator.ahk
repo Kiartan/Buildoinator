@@ -1,85 +1,42 @@
 ﻿#SingleInstance Force
 SetWorkingDir %A_ScriptDir%
-#Include path_helper.ahk
 
-; menu z wyborem gry i platformę itd. coś jak starter
 
-Gui, New,, Buildoinator
+; skrypt sprawdzajacy czy buildoinator jest kompletny
 
-Gui, Add, Text,, 
-(
-Witaj w Buildoinatorze!
-Wybierz grę i platforme na której testujesz:
-)
+x = % Completness_checker()
 
-Gui, Add, Text,, Gra
-Gui, Add, Radio, vHF gRun_slave, House Flipper
-Gui, Add, Radio, vHF2 gRun_slave, House Flipper 2
-
-Gui, Add, Text,, Platforma
-Gui, Add, DropDownList, vPlatform gRun_slave, Steam|Unity
-
-Gui, Add, Button, gOpen, Edytuj ścieżki
-
-Gui, show, W250 H180
-Gui, Submit, NoHide
+If %x% = 0
+	MsgBox, 16, Powoli!, 
+	(
+	Brak któregoś skryptu Buildoinatora.
+	
+Pobierz całość ponownie, bo inaczej coś wybuchnie.
+	)
+Else
+	Run, %A_ScriptDir%/menu1.ahk
+ExitApp
 return
 
-
-;Labels
-
-
-
-Run_slave:
-	Gui, Submit, Nohide
-	DetectHiddenWindows On
-	If (HF = 1 && Platform = "Steam") {	
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
-		Run, steam1.ahk
-	} Else If (HF = 1 && Platform = "Unity") {
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
-		Run, unity1.ahk
-	} Else If (HF2 = 1 && Platform = "Steam") {
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
-		Run, steam2.ahk
-	} Else If (HF2 = 1 && Platform = "Unity") {
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		Run, unity2.ahk
-	}
-	DetectHiddenWindows Off
-	return
-
-Open:
-	If FileExist("file_source.txt") {
-		MsgBox, Nie zapomnij zapisać!
-		Run, file_source.txt
+Completness_checker(){
+	If !FileExist("menu1.ahk") {
+		return 0
+	} Else If !FileExist("gitoinator.ahk") {
+		return 0 
+	} Else If !FileExist("gitoinator_beast.ahk") {
+		return 0
+	} Else If !FileExist("path_helper.ahk") {
+		return 0
+	} Else If !FileExist("steam1.ahk") {
+		return 0
+	} Else If !FileExist("steam2.ahk") {
+		return 0
+	} Else If !FileExist("unity1.ahk") {
+		return 0
+	} Else If !FileExist("unity2.ahk") {
+		return 0
 	} Else {
-		FileAbsent()
-	}	
-	return
+		return 1
+		}
+}
 
-GuiClose:
-	{	
-		DetectHiddenWindows On
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
-		DetectHiddenWindows Off
-	}
-	ExitApp
-	return
-
-
-
-;t::
-; HF2 %HF2% Platform %Platform%
-; return
