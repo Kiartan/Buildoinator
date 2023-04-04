@@ -12,7 +12,7 @@ If (%Git_lenght%) = 0 {
 	
 } Else {
 	
-	y1 = % PathFinder("Repo_HF: ", 10)
+	y1 = % PathFinder("Repo_HF: ", 9)
 	
 ; branch
 	{

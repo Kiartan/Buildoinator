@@ -12,7 +12,7 @@ If (%Git_lenght%) = 0 {
 	
 } Else {
 	
-	path = % PathFinder("Repo_HF2: ", 11)
+	path = % PathFinder("Repo_HF2: ", 10)
 	core_path = %path%\hf2-core
 	content_path = %path%\hf2-content
 	

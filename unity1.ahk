@@ -26,7 +26,7 @@ If !FileExist("file_source.txt") {
 		}
 		MsgBox, 4, Pytanko, A może nr commita do tego?
 		IfMsgBox, Yes
-			Run *RunAs gitoinator.ahk
+			Run *RunAs gitoinator.exe
 		
 		IfMsgBox, No
 			SendInput, wykryte na branchu %branch1%

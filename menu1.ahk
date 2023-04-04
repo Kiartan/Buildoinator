@@ -35,25 +35,25 @@ Run_slave:
 Gui, Submit, Nohide
 DetectHiddenWindows On
 If (HF = 1 && Platform = "Steam") {	
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
-		Run, steam1.ahk
+		WinClose, %A_ScriptDir%\steam2.exe
+		WinClose, %A_ScriptDir%\unity1.exe
+		WinClose, %A_ScriptDir%\unity2.exe
+		Run, steam1.exe
 	} Else If (HF = 1 && Platform = "Unity") {
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
-		Run, unity1.ahk
+		WinClose, %A_ScriptDir%\steam1.exe
+		WinClose, %A_ScriptDir%\steam2.exe
+		WinClose, %A_ScriptDir%\unity2.exe
+		Run, unity1.exe
 	} Else If (HF2 = 1 && Platform = "Steam") {
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
-		Run, steam2.ahk
+		WinClose, %A_ScriptDir%\steam1.exe
+		WinClose, %A_ScriptDir%\unity1.exe
+		WinClose, %A_ScriptDir%\unity2.exe
+		Run, steam2.exe
 	} Else If (HF2 = 1 && Platform = "Unity") {
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		Run, unity2.ahk
+		WinClose, %A_ScriptDir%\steam1.exe
+		WinClose, %A_ScriptDir%\steam2.exe
+		WinClose, %A_ScriptDir%\unity1.exe
+		Run, unity2.exe
 	}
 	DetectHiddenWindows Off
 	return
@@ -70,10 +70,10 @@ Open:
 GuiClose:
 	{	
 		DetectHiddenWindows On
-		WinClose, %A_ScriptDir%\steam1.ahk
-		WinClose, %A_ScriptDir%\steam2.ahk
-		WinClose, %A_ScriptDir%\unity1.ahk
-		WinClose, %A_ScriptDir%\unity2.ahk
+		WinClose, %A_ScriptDir%\steam1.exe
+		WinClose, %A_ScriptDir%\steam2.exe
+		WinClose, %A_ScriptDir%\unity1.exe
+		WinClose, %A_ScriptDir%\unity2.exe
 		DetectHiddenWindows Off
 	}
 	ExitApp
